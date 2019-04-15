@@ -14,6 +14,8 @@ MyTcpServer::MyTcpServer(QObject *parent, QPlainTextEdit *plainTextEdit, quint16
 
     connect(mTcpServer, &QTcpServer::newConnection, this, &MyTcpServer::slotNewConnection);
 
+    // clientsVector = new QVector<QTcpSocket*>();
+
     if (!mTcpServer->listen(QHostAddress::Any, *this->port)) {
         this->plainTextEdit->appendPlainText("Server is NOT started(");
     } else {
@@ -23,23 +25,27 @@ MyTcpServer::MyTcpServer(QObject *parent, QPlainTextEdit *plainTextEdit, quint16
 
 void MyTcpServer::slotNewConnection()
 {
-    mTcpSocket = mTcpServer->nextPendingConnection();
+    QTcpSocket* clientSocket = mTcpServer->nextPendingConnection();
+    clientSocket->socketDescriptor();
+    clientsVector.push_back(clientSocket);
 
-    connect(mTcpSocket, &QTcpSocket::readyRead, this, &MyTcpServer::slotServerRead);
-    connect(mTcpSocket, &QTcpSocket::disconnected, this, &MyTcpServer::slotClientDisconnected);
+    connect(clientSocket, &QTcpSocket::readyRead, this, &MyTcpServer::slotServerRead);
+    connect(clientSocket, &QTcpSocket::disconnected, this, &MyTcpServer::slotClientDisconnected);
 }
 
 void MyTcpServer::slotServerRead()
 {
-    while(mTcpSocket->bytesAvailable() > 0)
-    {
-        QByteArray array = mTcpSocket->readAll();        
-        QString DataAsString = QString::fromStdString(array.data());
-        plainTextEdit->appendPlainText(DataAsString);        
+    foreach (QTcpSocket* mTcpSocket, clientsVector) {
+        while(mTcpSocket->bytesAvailable() > 0)
+        {
+            QByteArray array = mTcpSocket->readAll();
+            QString DataAsString = QString::fromStdString(array.data());
+            plainTextEdit->appendPlainText(DataAsString);
+        }
     }
 }
 
 void MyTcpServer::slotClientDisconnected()
 {
-    mTcpSocket->close();
+    // clientsVector. TODO реализовать удаление клиента из массива при отключении
 }

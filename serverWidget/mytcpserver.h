@@ -6,6 +6,7 @@
 #include <QPlainTextEdit>
 #include <QString>
 #include <QLabel>
+#include <QVector>
 
 class MyTcpServer : public QObject
 {
@@ -23,4 +24,6 @@ private:
     QTcpSocket * mTcpSocket;
     QPlainTextEdit *plainTextEdit;
     quint16 *port;
+    // QVector<QTcpSocket*> *clientsVector;
+    std::vector<QTcpSocket*> clientsVector;
 };

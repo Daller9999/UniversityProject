@@ -26,7 +26,6 @@ void MainWindow::on_pushButton_clicked()
     QString stringPort = lineEditPort->text();
     quint16 *port = new quint16(stringPort.toUInt());
     mytcpserver = new MyTcpServer(this, plainTextEdit, port);
-    mytcpserver->slotNewConnection();
 }
 
 void MainWindow::on_pushButton_2_clicked()
