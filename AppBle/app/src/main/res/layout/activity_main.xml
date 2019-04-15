@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlack"
+            android:text="ESP32"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/connectToESP"
+                android:text="Connect BLE"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/disconnectToESP"
+                android:text="Disconnect BLE"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <EditText
+            android:id="@+id/editTextMessage"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+        <Button
+            android:id="@+id/buttonSendMessage"
+            android:text="Send message BLE"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+        <TextView
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp"
+            android:id="@+id/incommingMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:gravity="center"
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp"
+            android:text="WIFI"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:gravity="center"
+                android:textColor="@color/colorBlack"
+                android:text="IP"
+                android:textSize="20sp"
+                android:layout_width="40dp"
+                android:layout_height="match_parent" />
+            <EditText
+                android:id="@+id/editTextIP"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:gravity="center"
+                android:textColor="@color/colorBlack"
+                android:text="Port"
+                android:textSize="20sp"
+                android:layout_width="40dp"
+                android:layout_height="match_parent" />
+            <EditText
+                android:id="@+id/editTextPort"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/buttonConnectServer"
+            android:text="Connect to Server"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+        <EditText
+            android:id="@+id/editTextWiFiMessage"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+        <Button
+            android:id="@+id/buttonSendMessageServer"
+            android:text="Send Message to Server"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
