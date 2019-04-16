@@ -19,11 +19,11 @@ public class ClientSocket extends Thread {
     private String address;
     private int port = -1;
 
-    public void setMessage(String message) {
+    void setMessage(String message) {
         this.message = message;
     }
 
-    ClientSocket(MainActivity activity, String address, int port) {
+    ClientSocket(MainActivity activity, String address, int port) { // Инициализируем сокет клиента
         this.activity = activity;
         this.address = address;
         this.port = port;
@@ -31,23 +31,23 @@ public class ClientSocket extends Thread {
 
     public void run() {
         try {
-            InetAddress serverAddr = InetAddress.getByName(address);
+            InetAddress serverAddr = InetAddress.getByName(address); // Инициализируем ip адрес сервера
             socket = new Socket(serverAddr, port);
 
-            serverListen = new ServerListen(socket);
+            serverListen = new ServerListen(socket); // Инициализируем слушатель сервера
             serverListen.start();
 
             while (socket.isConnected()) {
                 if (!message.isEmpty())
                     try {
-                        PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),true);
+                        PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),true); // Поток отправки сообщений на сервер
                         out.println(message);
                         message = "";
                     } catch(final Exception e) {
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(activity, "Error: " + e.toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(activity, "Error: " + e.toString(), Toast.LENGTH_SHORT).show(); // Сообщение об ошибке
                             }
                         });
                     }
@@ -57,7 +57,7 @@ public class ClientSocket extends Thread {
         }
     }
 
-    private class ServerListen extends Thread {
+    private class ServerListen extends Thread { // Класс который слушает сервер
         private Socket socket;
 
         ServerListen(Socket socket) {

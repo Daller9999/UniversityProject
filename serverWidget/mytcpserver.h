@@ -20,10 +20,8 @@ public slots:
     void slotClientDisconnected();
 
 private:
-    QTcpServer * mTcpServer;
-    QTcpSocket * mTcpSocket;
-    QPlainTextEdit *plainTextEdit;
-    quint16 *port;
-    // QVector<QTcpSocket*> *clientsVector;
-    std::vector<QTcpSocket*> clientsVector;
+    QTcpServer * mTcpServer; // Наш сервер
+    QPlainTextEdit *plainTextEdit; // Поле вывода сообщений
+    quint16 *port; // Порт
+    std::vector<QTcpSocket*> clientsVector; // Массив клиентов
 };

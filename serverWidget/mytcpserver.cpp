@@ -6,7 +6,7 @@
 MyTcpServer::MyTcpServer(QObject *parent, QPlainTextEdit *plainTextEdit, quint16 *port)
     : QObject(parent)
 {
-    mTcpServer = new QTcpServer(this);
+    mTcpServer = new QTcpServer(this); // Инициализируем сервер
 
     this->plainTextEdit = plainTextEdit;
 
@@ -16,7 +16,7 @@ MyTcpServer::MyTcpServer(QObject *parent, QPlainTextEdit *plainTextEdit, quint16
 
     // clientsVector = new QVector<QTcpSocket*>();
 
-    if (!mTcpServer->listen(QHostAddress::Any, *this->port)) {
+    if (!mTcpServer->listen(QHostAddress::Any, *this->port)) { // Сообщение о старте сервера
         this->plainTextEdit->appendPlainText("Server is NOT started(");
     } else {
         this->plainTextEdit->appendPlainText("Server is started!");
@@ -25,17 +25,17 @@ MyTcpServer::MyTcpServer(QObject *parent, QPlainTextEdit *plainTextEdit, quint16
 
 void MyTcpServer::slotNewConnection()
 {
-    QTcpSocket* clientSocket = mTcpServer->nextPendingConnection();
-    clientSocket->socketDescriptor();
-    clientsVector.push_back(clientSocket);
+    QTcpSocket* clientSocket = mTcpServer->nextPendingConnection(); // Устанавливаем связь с сервером
+    clientSocket->socketDescriptor(); // Сохраняем нашего клиента
+    clientsVector.push_back(clientSocket); // Добавляем клиента в массив
 
-    connect(clientSocket, &QTcpSocket::readyRead, this, &MyTcpServer::slotServerRead);
+    connect(clientSocket, &QTcpSocket::readyRead, this, &MyTcpServer::slotServerRead); // Подключаем слоты и сигналы
     connect(clientSocket, &QTcpSocket::disconnected, this, &MyTcpServer::slotClientDisconnected);
 }
 
 void MyTcpServer::slotServerRead()
 {
-    foreach (QTcpSocket* mTcpSocket, clientsVector) {
+    foreach (QTcpSocket* mTcpSocket, clientsVector) { // Проходимся по всем клиентам и выводим их сообщения, если таковые есть
         while(mTcpSocket->bytesAvailable() > 0)
         {
             QByteArray array = mTcpSocket->readAll();

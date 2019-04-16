@@ -25,10 +25,10 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    MyTcpServer *mytcpserver;
-    QLineEdit *lineEditIP;
-    QLineEdit *lineEditPort;
-    QPlainTextEdit *plainTextEdit;
+    MyTcpServer *mytcpserver; // Сервер
+    QLineEdit *lineEditIP; // Поле вывода IP
+    QLineEdit *lineEditPort; // Поле ввода порта
+    QPlainTextEdit *plainTextEdit; // Поле вывода сообщений
 };
 
 #endif // MAINWINDOW_H
