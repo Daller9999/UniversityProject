@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private BluetoothDevice bluetoothDevice;
     private ClientSocket clientSocket;
     private boolean isConnected = false;
-    private UUID SERVICE_UUID;
-    private UUID CHARACTERISTIC_UUID;
+    private UUID SERVICE_UUID = UUID.fromString("6e400001-b5a3-f393-e0A9-e50e24dcca9e");
+    private UUID CHARACTERISTIC_UUID = UUID.fromString("6e400003-b5a3-f393-e0A9-e50e24dcca9e");;
     private UUID CHARACTERISTIC_UUID_WRITE = UUID.fromString("6e400002-b5a3-f393-e0A9-e50e24dcca9e");
     private TextView incomingMessageText;
 
@@ -139,11 +139,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override public void onServicesDiscovered(BluetoothGatt bluetoothGatt, int status) {
-            boolean find = false;
-            UUID serviceUUID = UUID.fromString("6e400001-b5a3-f393-e0A9-e50e24dcca9e"); // UUID сервиса нашей платы
-            UUID characterUUID = UUID.fromString("6e400003-b5a3-f393-e0A9-e50e24dcca9e"); // UUID характеристика нужного нам сервиса
-            BluetoothGattService bluetoothGattService = bluetoothGatt.getService(serviceUUID); // Иницилизируем наш сервис
-            BluetoothGattCharacteristic bluetoothGattCharacteristic = bluetoothGattService.getCharacteristic(characterUUID); // Иницилизируем нашу характеристику
+            BluetoothGattService bluetoothGattService = bluetoothGatt.getService(SERVICE_UUID); // Иницилизируем наш сервис
+            BluetoothGattCharacteristic bluetoothGattCharacteristic = bluetoothGattService.getCharacteristic(CHARACTERISTIC_UUID); // Иницилизируем нашу характеристику
             if (status == BluetoothGatt.GATT_SUCCESS) { // Проверяем статус подключения
                 for (BluetoothGattDescriptor descriptor : bluetoothGattCharacteristic.getDescriptors()) { // Проходим по всем дескрипторам(описания)
                     if (descriptor != null) { // Проверяем не нулевой ли наш дескриптор
